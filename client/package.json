@@ -12,6 +12,7 @@
 	},
 	"main": "server/index.js",
 	"dependencies": {
+		"@automattic/browser-data-collector": "^0.0.1",
 		"@automattic/calypso-analytics": "^1.0.0-alpha.1",
 		"@automattic/calypso-polyfills": "^1.0.0",
 		"@automattic/color-studio": "^2.3.0",
@@ -51,7 +52,6 @@
 		"@wordpress/i18n": "^3.10.0",
 		"@wordpress/icons": "^2.0.0",
 		"@wordpress/is-shallow-equal": "^2.0.0",
-		"@wordpress/icons": "^2.0.0",
 		"@wordpress/keycodes": "^2.10.0",
 		"@wordpress/notices": "^2.1.0",
 		"@wordpress/nux": "^3.13.0",
