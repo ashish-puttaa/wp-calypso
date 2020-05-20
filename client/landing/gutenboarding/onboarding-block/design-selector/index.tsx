@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { addQueryArgs } from '@wordpress/url';
 import { useI18n } from '@automattic/react-i18n';
 import { useHistory } from 'react-router-dom';
 
@@ -11,9 +10,8 @@ import { useHistory } from 'react-router-dom';
  * Internal dependencies
  */
 import { STORE_KEY as ONBOARD_STORE } from '../../stores/onboard';
-import designs from '../../available-designs';
+import designs, { getDesignImageUrl } from '../../available-designs';
 import { usePath, Step } from '../../path';
-import { isEnabled } from '../../../../config';
 import Link from '../../components/link';
 import { SubTitle, Title } from '../../components/titles';
 import { useTrackStep } from '../../hooks/use-track-step';
@@ -30,23 +28,6 @@ const DesignSelector: React.FunctionComponent = () => {
 
 	const { setSelectedDesign, setFonts } = useDispatch( ONBOARD_STORE );
 	const { getSelectedDesign } = useSelect( ( select ) => select( ONBOARD_STORE ) );
-
-	const getDesignUrl = ( design: Design ) => {
-		// We temporarily show pre-generated screenshots until we can generate tall versions dynamically using mshots.
-		// See `bin/generate-gutenboarding-design-thumbnails.js` for generating screenshots.
-		// https://github.com/Automattic/mShots/issues/16
-		// https://github.com/Automattic/wp-calypso/issues/40564
-		if ( ! isEnabled( 'gutenboarding/mshot-preview' ) ) {
-			return `/calypso/page-templates/design-screenshots/${ design.slug }_${ design.template }_${ design.theme }.jpg`;
-		}
-
-		const mshotsUrl = 'https://s.wordpress.com/mshots/v1/';
-		const previewUrl = addQueryArgs( design.src, {
-			font_headings: design.fonts.headings,
-			font_base: design.fonts.base,
-		} );
-		return mshotsUrl + encodeURIComponent( previewUrl );
-	};
 
 	useTrackStep( 'DesignSelection', () => ( {
 		selected_design: getSelectedDesign()?.slug,
@@ -88,7 +69,7 @@ const DesignSelector: React.FunctionComponent = () => {
 								<img
 									alt=""
 									aria-labelledby={ makeOptionId( design ) }
-									src={ getDesignUrl( design ) }
+									src={ getDesignImageUrl( design ) }
 								/>
 							</span>
 							<span className="design-selector__option-overlay">

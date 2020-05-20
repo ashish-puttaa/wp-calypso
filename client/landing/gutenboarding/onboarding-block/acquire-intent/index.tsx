@@ -19,6 +19,7 @@ import SiteTitle from './site-title';
 import Arrow from './arrow';
 import { useTrackStep } from '../../hooks/use-track-step';
 import { recordVerticalSkip, recordSiteTitleSkip } from '../../lib/analytics';
+import { preloadDesignThumbs } from '../../available-designs';
 
 /**
  * Style dependencies
@@ -55,6 +56,8 @@ const AcquireIntent: React.FunctionComponent = () => {
 			window.scrollTo( 0, 0 );
 		}
 	}, [ isSiteTitleActive, isMobile ] );
+
+	React.useEffect( preloadDesignThumbs, [] );
 
 	// translators: Button label for skipping filling an optional input in onboarding
 	const skipLabel = __( 'I donʼt know' );
