@@ -6,16 +6,19 @@ import { Button, Icon } from '@wordpress/components';
 import classNames from 'classnames';
 import { useI18n } from '@automattic/react-i18n';
 import { useState } from '@wordpress/element';
+import { DomainSuggestions } from '@automattic/data-stores';
 
 /**
  * Style dependencies
  */
 import './style.scss';
 
+type DomainCategory = DomainSuggestions.DomainCategory;
+
 export interface Props {
 	onSelect: ( domainCategorySlug?: string ) => void;
 	selected?: string;
-	domainCategories: string[];
+	domainCategories: DomainCategory[];
 }
 
 const DomainPickerCategories: React.FunctionComponent< Props > = ( {
